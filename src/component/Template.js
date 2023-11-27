@@ -11,11 +11,9 @@ import "./Template.css"
 const Template = ({filter, userData, ticketData}) => {
     
 
-    {
-        filter.orderBy === "priority" ?(
+    filter.orderBy === "priority" ?(
             ticketData.sort((a,b)=> (b.priority - a.priority ))
-        ):(ticketData.sort((a,b)=> (a.title > b.title ? 1 : -1)))
-    }
+    ):(ticketData.sort((a,b)=> (a.title > b.title ? 1 : -1)))
 
     
   return (
