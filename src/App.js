@@ -39,7 +39,7 @@ function App() {
           JSON.stringify(filter)
         );
       }
-    }, []);
+    }, [filter]);
     
     // console.log(filter)
   
