@@ -1,15 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./NavBar.css";
 import { IoFilterOutline } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-function useClickOutside(ref, onClickOutside) {
-//   useEffect(() => {
+function useClickOutside(ref, ref2, onClickOutside) {
+  useEffect(() => {
     /**
      * Invoke Function onClick outside of element
      */
     function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
+      // console.log(ref2.current.contains(event.target));
+      // console.log(event.target);
+      if (
+        ref.current &&
+        !ref.current.contains(event.target) &&
+        !ref2.current.contains(event.target)
+      ) {
+        // console.log(ref.current.contains(event.target))
         onClickOutside();
       }
     }
@@ -19,12 +26,13 @@ function useClickOutside(ref, onClickOutside) {
       // dispose
       document.removeEventListener("mousedown", handleClickOutside);
     };
-//   }, []);
+  }, [ref, ref2, onClickOutside]);
 }
 
 const NavBar = ({ filter, setFilter }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const ref2 = useRef(null);
 
 
   const handleSelect = (e) => {
@@ -34,14 +42,13 @@ const NavBar = ({ filter, setFilter }) => {
     setFilter(newFilter);
   };
 
-  useClickOutside(ref, () => {
+  useClickOutside(ref, ref2, () => {
     setOpen(false);
   });
 
-
   return (
     <div className="displayed">
-      <button className="dropdown" onClick={() => setOpen(!open)}>
+      <button className="dropdown" onClick={() => setOpen(!open)} ref={ref2}>
         <div className="display-icon">
           <IoFilterOutline />
         </div>
